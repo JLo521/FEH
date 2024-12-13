@@ -1,0 +1,81 @@
+﻿@page "/adoptionform"
+@using Microsoft.EntityFrameworkCore
+@using FEH.Components
+@inject IDbContextFactory<FEH.Data.FEHContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>Forms</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Forms" OnValidSubmit="AddForms" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="firstname" class="form-label">First Name:</label> 
+                <InputText id="firstname" @bind-Value="Forms.FirstName" class="form-control" /> 
+                <ValidationMessage For="() => Forms.FirstName" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="lastname" class="form-label">Last Name:</label> 
+                <InputText id="lastname" @bind-Value="Forms.LastName" class="form-control" /> 
+                <ValidationMessage For="() => Forms.LastName" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label> 
+                <InputText id="email" @bind-Value="Forms.Email" class="form-control" /> 
+                <ValidationMessage For="() => Forms.Email" class="text-danger" /> 
+            </div>        
+            <!--<div class="mb-3">
+                <label for="dogname" class="form-label">DogName:</label> 
+                <InputText id="dogname" @bind-Value="Forms.DogName" class="form-control" /> 
+                <ValidationMessage For="() => Forms.DogName" class="text-danger" /> 
+            </div>    -->
+            <!--<div class="mb-3">
+                <label for="status" class="form-label">Status:</label> 
+                <InputText id="status" @bind-Value="Forms.Status" class="form-control" /> 
+                <ValidationMessage For="() => Forms.Status" class="text-danger" /> 
+            </div>     -->   
+            <!--<div class="mb-3">
+                <label for="timesubmitted" class="form-label">TimeSubmitted:</label> 
+                <InputDate id="timesubmitted" @bind-Value="Forms.TimeSubmitted" class="form-control" /> 
+                <ValidationMessage For="() => Forms.TimeSubmitted" class="text-danger" /> 
+            </div> -->     
+            <div class="mb-3">
+                <label for="address" class="form-label">Address:</label> 
+                <InputText id="address" @bind-Value="Forms.Address" class="form-control" /> 
+                <ValidationMessage For="() => Forms.Address" class="text-danger" /> 
+            </div>        
+            <!--<div class="mb-3">
+                <label for="dogid" class="form-label">DogID:</label> 
+                <InputNumber id="dogid" @bind-Value="Forms.DogID" class="form-control" /> 
+                <ValidationMessage For="() => Forms.DogID" class="text-danger" /> 
+            </div>        -->
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/forms">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    //private Forms Form1 { get; set; } = new(3, "Bobby", "Pending", DateTime.Now, 1);
+    private Forms Forms { get; set; } = new();
+    
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddForms()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Forms.Add(Forms);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/viewform");
+    }
+}

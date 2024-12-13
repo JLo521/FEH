@@ -1,0 +1,124 @@
+﻿@page "/forms/edit"
+@using Microsoft.EntityFrameworkCore
+@using FEH.Components
+@inject IDbContextFactory<FEH.Data.FEHContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>Forms</h2>
+<hr />
+@if (Forms is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="Forms" OnValidSubmit="UpdateForms" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary role="alert"/>
+                <input type="hidden" name="Forms.ID" value="@Forms.ID" />
+                <div class="mb-3">
+                    <label for="firstname" class="form-label">FirstName:</label>
+                    <InputText id="firstname" @bind-Value="Forms.FirstName" class="form-control" />
+                    <ValidationMessage For="() => Forms.FirstName" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="lastname" class="form-label">LastName:</label>
+                    <InputText id="lastname" @bind-Value="Forms.LastName" class="form-control" />
+                    <ValidationMessage For="() => Forms.LastName" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <InputText id="email" @bind-Value="Forms.Email" class="form-control" />
+                    <ValidationMessage For="() => Forms.Email" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="dogname" class="form-label">DogName:</label>
+                    <InputText id="dogname" @bind-Value="Forms.DogName" class="form-control" />
+                    <ValidationMessage For="() => Forms.DogName" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="status" class="form-label">Status:</label>
+                    <InputText id="status" @bind-Value="Forms.Status" class="form-control" />
+                    <ValidationMessage For="() => Forms.Status" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="timesubmitted" class="form-label">TimeSubmitted:</label>
+                    <InputDate id="timesubmitted" @bind-Value="Forms.TimeSubmitted" class="form-control" />
+                    <ValidationMessage For="() => Forms.TimeSubmitted" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address:</label>
+                    <InputText id="address" @bind-Value="Forms.Address" class="form-control" />
+                    <ValidationMessage For="() => Forms.Address" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="dogid" class="form-label">DogID:</label>
+                    <InputNumber id="dogid" @bind-Value="Forms.DogID" class="form-control" />
+                    <ValidationMessage For="() => Forms.DogID" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/forms">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int ID { get; set; }
+
+    [SupplyParameterFromForm]
+    private Forms? Forms { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        Forms ??= await context.Forms.FirstOrDefaultAsync(m => m.ID == ID);
+
+        if (Forms is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateForms()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(Forms!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!FormsExists(Forms!.ID))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/forms");
+    }
+
+    private bool FormsExists(int id)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.Forms.Any(e => e.ID == id);
+    }
+}

@@ -3,8 +3,9 @@
 @using FEH.Components
 @inject IDbContextFactory<OurDogs.Data.FEHContext> DbFactory
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JS
 
-<PageTitle>Create</PageTitle>
+
 
 <h1>Create</h1>
 
@@ -47,9 +48,12 @@
             </div>        
             <div class="mb-3">
                 <label for="image" class="form-label">Image:</label> 
-                <InputText id="image" @bind-Value="Dogs.Image" class="form-control" /> 
+                <InputFile @ref="dogImage" OnChange="LoadFiles" id="image" @bind-Value="Dogs.Image" class="form-control" />
                 <ValidationMessage For="() => Dogs.Image" class="text-danger" /> 
+                
             </div>        
+            
+
             <button type="submit" class="btn btn-primary">Create</button>
         </EditForm>
     </div>
@@ -60,15 +64,31 @@
 </div>
 
 @code {
+
+    private InputFile? dogImage;
+    string imagePath = "";
+
     [SupplyParameterFromForm]
     private Dogs Dogs { get; set; } = new();
 
-    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
-    private async Task AddDogs()
+
+    //When file is uploaded, create path in Images folder and create filestream there.
+    //Then, make imagePath string copy the path to help overide Dogs image from SupplyParameterFromForm method
+    private async Task LoadFiles(InputFileChangeEventArgs e)
     {
-        using var context = DbFactory.CreateDbContext();
-        context.Dogs.Add(Dogs);
-        await context.SaveChangesAsync();
-        NavigationManager.NavigateTo("/dogs");
+        var path = "wwwroot\\Images\\" + dogImage.ToString();
+        FileStream fs = new FileStream(path, FileMode.Create);
+        imagePath = "wwwroot\\Images\\" + dogImage.ToString();
+    }
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+        private async Task AddDogs()
+        {
+            using var context = DbFactory.CreateDbContext();
+            Dogs.Image = imagePath; //Override parameter supplied by the form
+            context.Dogs.Add(Dogs);
+
+            await context.SaveChangesAsync();
+            NavigationManager.NavigateTo("/dogs");
+        
     }
 }

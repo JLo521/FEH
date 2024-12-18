@@ -6,7 +6,6 @@
 @implements IAsyncDisposable
 @inject IDbContextFactory<OurDogs.Data.FEHContext> DbFactory
 
-<PageTitle>Index</PageTitle>
 
 <h1>Index</h1>
 
@@ -14,7 +13,9 @@
     <a href="dogs/create">Create New</a>
 </p>
 
+
 <QuickGrid Class="table" Items="context.Dogs">
+    <PropertyColumn Property="dogs => dogs.Id" />
     <PropertyColumn Property="dogs => dogs.AdoptionPending" />
     <PropertyColumn Property="dogs => dogs.Age" />
     <PropertyColumn Property="dogs => dogs.Name" />
@@ -31,6 +32,9 @@
 </QuickGrid>
 
 @code {
+
+
+
     private FEHContext context = default!;
 
     protected override void OnInitialized()
@@ -39,4 +43,9 @@
     }
 
     public async ValueTask DisposeAsync() => await context.DisposeAsync();
+
+
+   
+    
+
 }

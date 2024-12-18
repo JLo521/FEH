@@ -1,0 +1,51 @@
+﻿@page "/adoptor"
+@using Microsoft.EntityFrameworkCore
+@using FEH.Components
+@using OurDogs.Data
+@inject IDbContextFactory<OurDogs.Data.FEHContext> DbFactory
+@inject NavigationManager NavigationManager
+
+
+<PageTitle>See Our Dogs</PageTitle>
+
+<h1>View Our Available Dogs</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Breed </th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Dogs dogs in context.Dogs)
+            {
+                <tr>
+                <td> @dogs.Image </td>
+                    <td>@dogs.Name</td>
+                    <td>@dogs.Breed</td>
+                    <td>@dogs.Description</td>
+                </tr>
+            }
+            
+        </tbody>
+    </table>
+
+
+
+@code{
+   
+
+    private FEHContext context = default!;
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}
+
+
+

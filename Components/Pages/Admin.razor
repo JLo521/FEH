@@ -1,0 +1,13 @@
+﻿@page "/admin"
+@using Microsoft.EntityFrameworkCore
+@using FEH.Components
+@inject IDbContextFactory<OurDogs.Data.FEHContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>AdminPage</PageTitle>
+
+<p><h1>Admin Controls</h1></p>
+<p><h3>Welcome to the admin page, please select what you would like to do</h3></p>
+<p><NavLink href="/messages">Go to Messages</NavLink></p>
+<p><NavLink href="/dogs/create">Go to Dog Adding Page</NavLink></p>
+<p><NavLink href="/dogs/delete">Go to Dog Removing Page</NavLink></p>

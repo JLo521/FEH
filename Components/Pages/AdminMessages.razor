@@ -1,0 +1,27 @@
+﻿@page "/messages/admin"
+
+<PageTitle>AdminMessagingPage</PageTitle>
+<p><h1>Secure Admin Messaging</h1></p>
+<p><h3>Respond to a message or question from a user</h3></p>
+
+<InputText @bind-Value="currentMessage" placeholder="Type a message..." class="form-control" />
+
+<button @onclick="AddMessage" class="btn btn-primary mt-2">Send to User</button>
+
+<h3>Message Log</h3>
+<textarea class="form-control" rows="10" style="resize: none; overflow-y: auto;" readonly>@messages</textarea>
+
+@code {
+    private string currentMessage = string.Empty;
+    private string messages = string.Empty;
+
+    private void AddMessage()
+    {
+        if (!string.IsNullOrWhiteSpace(currentMessage))
+        {
+            messages += currentMessage + "\n";
+            currentMessage = string.Empty;
+            StateHasChanged();
+        }
+    }
+}

@@ -1,3 +1,12 @@
+using static Microsoft.AspNetCore.Razor.Language.TagHelperMetadata;
+
+using System.Runtime.Serialization;
+
+namespace FEH.Components
+{
+    public class Dogs
+    {
+
 
         public int Id { get; set; }
         public bool AdoptionPending { get; set; }
@@ -24,10 +33,5 @@
     }
 }
 
-
-
-    }
-
-}
 
 

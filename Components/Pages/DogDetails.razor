@@ -1,0 +1,48 @@
+﻿@using Microsoft.EntityFrameworkCore
+@using FEH.Components
+@using FEH.State
+@inject IDbContextFactory<FEH.Data.FEHContext> DbFactory
+@inject NavigationManager NavigationManager
+@page "/dog-details/{dogId:int}"
+<PageTitle>Dogs.Name</PageTitle>
+<h3>Details of Dog</h3>
+
+@if (Dogs == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="dog-details">
+        <img src="@Dogs.Image" alt="@Dogs.Name" class="dog-image-large" />
+        <h4>@Dogs.Name</h4>
+        <p><strong>Breed:</strong> @Dogs.Breed</p>
+        <p><strong>Age:</strong> @Dogs.Age years</p>
+        <p>@Dogs.Description</p>
+        @if (Dogs.AdoptionPending)
+        {
+            <p>Adoption Pending</p>
+        }
+        @if (!Dogs.AdoptionPending)
+        {
+            <p>Ready to adopt!</p>
+        }
+        <NavLink href="/forms/create" class="btn btn-primary">Adopt</NavLink>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int DogID { get; set; }
+    
+    private Dogs Dogs = new();
+    protected override async Task OnInitializedAsync()
+    {
+        var context = await DbFactory.CreateDbContextAsync();
+        Dogs = await context.Dogs.FirstOrDefaultAsync(d => d.Id == DogID);
+        UserState.DogName = Dogs.Name;
+        UserState.DogID = Dogs.Id;
+    }
+    
+    
+}

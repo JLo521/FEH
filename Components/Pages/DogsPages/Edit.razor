@@ -1,0 +1,119 @@
+﻿@page "/dogs/edit"
+@using Microsoft.EntityFrameworkCore
+@using FEH.Components
+@inject IDbContextFactory<FEH.Data.FEHContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>Dogs</h2>
+<hr />
+@if (Dogs is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="Dogs" OnValidSubmit="UpdateDogs" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary role="alert"/>
+                <input type="hidden" name="Dogs.Id" value="@Dogs.Id" />
+                <div class="mb-3">
+                    <label for="adoptionpending" class="form-label">AdoptionPending:</label>
+                    <InputCheckbox id="adoptionpending" @bind-Value="Dogs.AdoptionPending" class="form-check-input" />
+                    <ValidationMessage For="() => Dogs.AdoptionPending" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="age" class="form-label">Age:</label>
+                    <InputNumber id="age" @bind-Value="Dogs.Age" class="form-control" />
+                    <ValidationMessage For="() => Dogs.Age" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name:</label>
+                    <InputText id="name" @bind-Value="Dogs.Name" class="form-control" />
+                    <ValidationMessage For="() => Dogs.Name" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="size" class="form-label">Size:</label>
+                    <InputNumber id="size" @bind-Value="Dogs.Size" class="form-control" />
+                    <ValidationMessage For="() => Dogs.Size" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description:</label>
+                    <InputText id="description" @bind-Value="Dogs.Description" class="form-control" />
+                    <ValidationMessage For="() => Dogs.Description" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="breed" class="form-label">Breed:</label>
+                    <InputText id="breed" @bind-Value="Dogs.Breed" class="form-control" />
+                    <ValidationMessage For="() => Dogs.Breed" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image:</label>
+                    <InputText id="image" @bind-Value="Dogs.Image" class="form-control" />
+                    <ValidationMessage For="() => Dogs.Image" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/dogs">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    [SupplyParameterFromForm]
+    private Dogs? Dogs { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        Dogs ??= await context.Dogs.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (Dogs is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateDogs()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(Dogs!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!DogsExists(Dogs!.Id))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/dogs");
+    }
+
+    private bool DogsExists(int id)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.Dogs.Any(e => e.Id == id);
+    }
+}

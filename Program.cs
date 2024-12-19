@@ -2,6 +2,7 @@ using FEH.Components;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using FEH.Data;
+using FEH.State;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,10 +10,18 @@ builder.Services.AddDbContextFactory<FEHContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("FEHContext") ?? throw new InvalidOperationException("Connection string 'FEHContext' not found.")));
 
 
+
 builder.Services.AddQuickGridEntityFrameworkAdapter();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddDistributedMemoryCache();
 
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(10);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
@@ -32,6 +41,8 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
+
+app.UseSession();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();

@@ -33,6 +33,31 @@ else
                     <ValidationMessage For="() => Forms.LastName" class="text-danger" />
                 </div>
                 <div class="mb-3">
+                    <label for="userid" class="form-label">UserID:</label>
+                    <InputNumber id="userid" @bind-Value="Forms.UserID" class="form-control" />
+                    <ValidationMessage For="() => Forms.UserID" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="monthlyincome" class="form-label">MonthlyIncome:</label>
+                    <InputNumber id="monthlyincome" @bind-Value="Forms.MonthlyIncome" class="form-control" />
+                    <ValidationMessage For="() => Forms.MonthlyIncome" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="householdpets" class="form-label">HouseholdPets:</label>
+                    <InputNumber id="householdpets" @bind-Value="Forms.HouseholdPets" class="form-control" />
+                    <ValidationMessage For="() => Forms.HouseholdPets" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="householdhumans" class="form-label">HouseholdHumans:</label>
+                    <InputNumber id="householdhumans" @bind-Value="Forms.HouseholdHumans" class="form-control" />
+                    <ValidationMessage For="() => Forms.HouseholdHumans" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="felon" class="form-label">Felon:</label>
+                    <InputCheckbox id="felon" @bind-Value="Forms.Felon" class="form-check-input" />
+                    <ValidationMessage For="() => Forms.Felon" class="text-danger" />
+                </div>
+                <div class="mb-3">
                     <label for="email" class="form-label">Email:</label>
                     <InputText id="email" @bind-Value="Forms.Email" class="form-control" />
                     <ValidationMessage For="() => Forms.Email" class="text-danger" />
@@ -46,11 +71,6 @@ else
                     <label for="status" class="form-label">Status:</label>
                     <InputText id="status" @bind-Value="Forms.Status" class="form-control" />
                     <ValidationMessage For="() => Forms.Status" class="text-danger" />
-                </div>
-                <div class="mb-3">
-                    <label for="timesubmitted" class="form-label">TimeSubmitted:</label>
-                    <InputDate id="timesubmitted" @bind-Value="Forms.TimeSubmitted" class="form-control" />
-                    <ValidationMessage For="() => Forms.TimeSubmitted" class="text-danger" />
                 </div>
                 <div class="mb-3">
                     <label for="address" class="form-label">Address:</label>

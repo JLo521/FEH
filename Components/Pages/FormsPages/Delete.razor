@@ -26,6 +26,26 @@
             <dd class="col-sm-10">@forms.LastName</dd>
         </dl>
         <dl class="row">
+            <dt class="col-sm-2">UserID</dt>
+            <dd class="col-sm-10">@forms.UserID</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">MonthlyIncome</dt>
+            <dd class="col-sm-10">@forms.MonthlyIncome</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">HouseholdPets</dt>
+            <dd class="col-sm-10">@forms.HouseholdPets</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">HouseholdHumans</dt>
+            <dd class="col-sm-10">@forms.HouseholdHumans</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">Felon</dt>
+            <dd class="col-sm-10">@forms.Felon</dd>
+        </dl>
+        <dl class="row">
             <dt class="col-sm-2">Email</dt>
             <dd class="col-sm-10">@forms.Email</dd>
         </dl>
@@ -36,10 +56,6 @@
         <dl class="row">
             <dt class="col-sm-2">Status</dt>
             <dd class="col-sm-10">@forms.Status</dd>
-        </dl>
-        <dl class="row">
-            <dt class="col-sm-2">TimeSubmitted</dt>
-            <dd class="col-sm-10">@forms.TimeSubmitted</dd>
         </dl>
         <dl class="row">
             <dt class="col-sm-2">Address</dt>
@@ -78,6 +94,6 @@
         using var context = DbFactory.CreateDbContext();
         context.Forms.Remove(forms!);
         await context.SaveChangesAsync();
-        NavigationManager.NavigateTo("/viewform");
+        NavigationManager.NavigateTo("/forms");
     }
 }

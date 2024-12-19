@@ -2,9 +2,9 @@
 @using Microsoft.EntityFrameworkCore
 @using Microsoft.AspNetCore.Components.QuickGrid
 @using FEH.Components
-@using OurDogs.Data
+@using FEH.Data
 @implements IAsyncDisposable
-@inject IDbContextFactory<OurDogs.Data.FEHContext> DbFactory
+@inject IDbContextFactory<FEH.Data.JackContext> DbFactory
 
 <PageTitle>Index</PageTitle>
 
@@ -15,6 +15,7 @@
 </p>
 
 <QuickGrid Class="table" Items="context.Dogs">
+    <PropertyColumn Property="dogs => dogs.Id" />
     <PropertyColumn Property="dogs => dogs.AdoptionPending" />
     <PropertyColumn Property="dogs => dogs.Age" />
     <PropertyColumn Property="dogs => dogs.Name" />
@@ -31,7 +32,8 @@
 </QuickGrid>
 
 @code {
-    private FEHContext context = default!;
+    private JackContext context = default!;
+=======
 
     protected override void OnInitialized()
     {

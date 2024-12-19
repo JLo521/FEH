@@ -1,0 +1,80 @@
+﻿
+.dog-policies {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+
+    .dog-policies h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #007bff;
+    }
+
+.policy-section {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-left: 4px solid #007bff;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+    .policy-section h5 {
+        font-size: 1.25rem;
+        margin-bottom: 8px;
+        color: #007bff;
+    }
+
+    .policy-section p {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin: 0;
+        color: #555;
+    }
+
+
+.dog-policies a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+    .dog-policies a:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+
+.dog-policies h4 {
+    font-size: 1.2rem;
+    margin-top: 20px;
+    text-align: center;
+    color: #28a745;
+}
+
+@media (max-width: 768px) {
+    .dog-policies {
+        padding: 15px;
+    }
+
+        .dog-policies h2 {
+            font-size: 1.5rem;
+        }
+
+    .policy-section h5 {
+        font-size: 1.1rem;
+    }
+
+    .policy-section p {
+        font-size: 0.95rem;
+    }
+}

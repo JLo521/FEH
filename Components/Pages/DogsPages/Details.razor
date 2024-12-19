@@ -1,7 +1,7 @@
 ﻿@page "/dogs/details"
 @using Microsoft.EntityFrameworkCore
 @using FEH.Components
-@inject IDbContextFactory<OurDogs.Data.FEHContext> DbFactory
+@inject IDbContextFactory<FEH.Data.JackContext> DbFactory
 @inject NavigationManager NavigationManager
 
 <PageTitle>Details</PageTitle>
@@ -31,6 +31,7 @@
             <dd class="col-sm-10">@dogs.Breed</dd>
             <dt class="col-sm-2">Image</dt>
             <dd class="col-sm-10">@dogs.Image</dd>
+
         </dl>
         <div>
             <a href="@($"/dogs/edit?id={dogs.Id}")">Edit</a> |

@@ -1,0 +1,113 @@
+﻿@page "/forms/create"
+@using Microsoft.EntityFrameworkCore
+@using FEH.Components
+@using FEH.State
+@inject IDbContextFactory<FEH.Data.JackContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>Forms</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Forms" OnValidSubmit="AddForms" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="firstname" class="form-label">FirstName:</label> 
+                <InputText id="firstname" @bind-Value="Forms.FirstName" class="form-control" /> 
+                <ValidationMessage For="() => Forms.FirstName" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="lastname" class="form-label">LastName:</label> 
+                <InputText id="lastname" @bind-Value="Forms.LastName" class="form-control" /> 
+                <ValidationMessage For="() => Forms.LastName" class="text-danger" /> 
+            </div>        
+                 
+            <div class="mb-3">
+                <label for="monthlyincome" class="form-label">MonthlyIncome:</label> 
+                <InputNumber id="monthlyincome" @bind-Value="Forms.MonthlyIncome" class="form-control" /> 
+                <ValidationMessage For="() => Forms.MonthlyIncome" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="householdpets" class="form-label">HouseholdPets:</label> 
+                <InputNumber id="householdpets" @bind-Value="Forms.HouseholdPets" class="form-control" /> 
+                <ValidationMessage For="() => Forms.HouseholdPets" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="householdhumans" class="form-label">HouseholdHumans:</label> 
+                <InputNumber id="householdhumans" @bind-Value="Forms.HouseholdHumans" class="form-control" /> 
+                <ValidationMessage For="() => Forms.HouseholdHumans" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="felon" class="form-label">Felon:</label> 
+                <InputCheckbox id="felon" @bind-Value="Forms.Felon" class="form-check-input" /> 
+                <ValidationMessage For="() => Forms.Felon" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label> 
+                <InputText id="email" @bind-Value="Forms.Email" class="form-control" /> 
+                <ValidationMessage For="() => Forms.Email" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="dogname" class="form-label">DogName:</label> 
+                <InputText id="dogname" @bind-Value="Forms.DogName" class="form-control" disabled />
+                <ValidationMessage For="() => Forms.DogName" class="text-danger" /> 
+            </div>        
+                  
+            <div class="mb-3">
+                <label for="address" class="form-label">Address:</label> 
+                <InputText id="address" @bind-Value="Forms.Address" class="form-control" /> 
+                <ValidationMessage For="() => Forms.Address" class="text-danger" /> 
+            </div>        
+               
+            <button type="submit" class="btn btn-primary">Create</button>
+
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/forms">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Forms Forms { get; set; } = new Forms
+        {
+            UserID = 0,
+            DogName = UserState.DogName,
+            Status = "Pending",
+            DogID = UserState.DogID,
+            FirstName = string.Empty,
+            LastName = string.Empty,
+            MonthlyIncome = 0m,
+            HouseholdPets = 0,
+            HouseholdHumans = 0,
+            Felon = false,
+            Email = string.Empty,
+            Address = string.Empty
+        };
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        Forms.DogName = UserState.DogName;
+        Forms.DogID = UserState.DogID;
+
+        await Task.CompletedTask;
+    }
+
+    private async Task AddForms()
+    {
+        Console.WriteLine($"Saving Forms: {Forms.FirstName}, {Forms.LastName}, {Forms.MonthlyIncome}");
+        using var context = DbFactory.CreateDbContext();
+        context.Forms.Add(Forms);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/forms");
+    }
+}
+

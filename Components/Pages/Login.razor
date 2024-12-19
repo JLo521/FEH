@@ -1,0 +1,67 @@
+﻿@using System.Linq;
+@using Microsoft.AspNetCore.Components;
+@using Microsoft.AspNetCore.Components.Web;
+@using FEH.Components;
+@page "/login"
+<Popup @ref="popupRef" />
+<PageTitle>Login</PageTitle>
+<head>
+    <style>
+        body{
+        background: url("../assets/paper2.jpg") left top repeat;
+        }
+    </style>
+</head>
+<body>
+    <h3>@headingValue</h3>
+    <h1>login</h1>
+    <br />
+    <label for="username">Username:  </label>
+    <InputText @bind-Value="username" /><br><br>
+    <label for="password">Password:  </label>
+    <InputText @bind-Value="password" /><br><br>
+    <button @onclick="login">Login</button>
+    <button type="submit" @onclick="@(() => loginasadmin())">Login as admin</button>
+</body>
+@code{
+    private string headingValue = "Initial heading";
+    private string changed = "asdf";
+    private Popup popupRef;
+
+    [SupplyParameterFromForm]
+    private string? username{ get; set; }
+    private string? password{ get; set; }
+    FEHContext1 dbcon = new FEHContext1(new Microsoft.EntityFrameworkCore.DbContextOptions<FEHContext1>());
+    private void UpdateHeading() => headingValue = changed;  
+    private void test()
+    {
+        headingValue = changed;
+        Console.WriteLine("Hello World!");
+        popupRef.Show("test");
+        StateHasChanged();
+
+    }
+    public async Task login()
+    {
+        Console.WriteLine("Hello World!");
+        popupRef.Show("test");
+        StateHasChanged();
+        User result = (User)(from User in dbcon.User
+                             where User.username == username && User.password == password
+                             select User);
+        userDetails.id = result.id;
+        userDetails.isAdmin = result.isAdmin;
+        if (username != null) {
+            popupRef.Show("success");
+        }
+        else
+        {
+            popupRef.Show("failure");
+        }
+
+    }
+
+    private void loginasadmin(){
+
+    }
+}

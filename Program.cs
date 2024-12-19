@@ -2,8 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using OurDogs.Data;
+using FEH;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContextFactory<FEHContext1>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("FEHContext1") ?? throw new InvalidOperationException("Connection string 'FEHContext1' not found.")));
 builder.Services.AddDbContextFactory<FEHContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("FEHContext") ?? throw new InvalidOperationException("Connection string 'FEHContext' not found.")));
 

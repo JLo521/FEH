@@ -1,17 +1,22 @@
-﻿@page "/messages/admin"
+﻿@rendermode InteractiveServer
+@inject Messaging Messaging
+@page "/messages/admin"
 
-<PageTitle>AdminMessagingPage</PageTitle>
+<PageTitle>Admin Messaging Page</PageTitle>
 <p><h1>Secure Admin Messaging</h1></p>
 <p><h3>Respond to a message or question from a user</h3></p>
 
-<InputText @bind-Value="currentMessage" placeholder="Type a message..." class="form-control" />
+<p><InputText @bind-Value="currentName" placeholder="Type your name..." class="form-control" /></p>
+<p><InputText @bind-Value="currentMessage" placeholder="Type a message..." class="form-control" /></p>
 
-<button @onclick="AddMessage" class="btn btn-primary mt-2">Send to User</button>
+<button @onclick="AddMessage" class="btn btn-primary mt-2">Send Message</button>
+<button @onclick="Refresh" class="btn btn-primary mt-2">Refresh Chat</button>
 
 <h3>Message Log</h3>
-<textarea class="form-control" rows="10" style="resize: none; overflow-y: auto;" readonly>@messages</textarea>
+<textarea class="form-control" rows="10" style="resize: none; overflow-y: auto;" readonly>@Messaging.messages</textarea>
 
 @code {
+    private string currentName = string.Empty;
     private string currentMessage = string.Empty;
     private string messages = string.Empty;
 
@@ -19,9 +24,13 @@
     {
         if (!string.IsNullOrWhiteSpace(currentMessage))
         {
-            messages += currentMessage + "\n";
-            currentMessage = string.Empty;
-            StateHasChanged();
+            Messaging.AddMessage("(Admin) " + currentName, currentMessage);
         }
+        currentName = string.Empty;
+        currentMessage = string.Empty;
+    }
+    private void Refresh()
+    {
+        StateHasChanged();
     }
 }

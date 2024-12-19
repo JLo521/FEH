@@ -1,4 +1,5 @@
 ﻿using FEH.Components;
+using FEH.Components.Pages.MessagingPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using OurDogs.Data;
@@ -10,6 +11,8 @@ builder.Services.AddDbContextFactory<FEHContext>(options =>
 builder.Services.AddQuickGridEntityFrameworkAdapter();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+builder.Services.AddSingleton<Messaging>();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

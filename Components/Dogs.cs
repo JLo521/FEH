@@ -1,8 +1,3 @@
-﻿namespace FEH.Components
-{
-    public class Dogs
-    {
-
 
         public int Id { get; set; }
         public bool AdoptionPending { get; set; }
@@ -28,3 +23,11 @@
         }*/
     }
 }
+
+
+
+    }
+
+}
+
+

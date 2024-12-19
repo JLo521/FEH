@@ -4,8 +4,12 @@
 @using FEH.State
 @inject IDbContextFactory<FEH.Data.JackContext> DbFactory
 @inject NavigationManager NavigationManager
-
 <PageTitle>Create</PageTitle>
+@inject IDbContextFactory<OurDogs.Data.FEHContext> DbFactory
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JS
+
+
 
 <h1>Create</h1>
 
@@ -51,6 +55,7 @@
                 <InputText id="image" @bind-Value="Dogs.Image" class="form-control" /> 
                 <ValidationMessage For="() => Dogs.Image" class="text-danger" /> 
             </div>        
+
             <button type="submit" class="btn btn-primary">Create</button>
         </EditForm>
     </div>
@@ -73,5 +78,10 @@
         context.Dogs.Add(Dogs);
         await context.SaveChangesAsync();
         NavigationManager.NavigateTo("/dogs");
+=======
+    <a href="/dogs">Back to List</a>
+</div>
+
+
     }
 }

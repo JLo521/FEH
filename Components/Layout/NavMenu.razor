@@ -1,15 +1,15 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">Fur-Ever Homes</a>
-    </div>
-</div>
 
 <input type="checkbox" title="Navigation menu" class="navbar-toggler" />
 
 <div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="flex-column">
+    <nav class="navbar fixed-top flex-sm-row bg-dark">
+
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+            <a class="navbar-brand me-auto"> FEH </a>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link me-auto" href="" Match="NavLinkMatch.All">
                 <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
             </NavLink>
         </div>
@@ -21,8 +21,11 @@
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="dog-list">
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span>Adopt A Dog
+
             </NavLink>
         </div>
+
+        
     </nav>
 </div>
 

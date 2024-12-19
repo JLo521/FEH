@@ -14,7 +14,6 @@ namespace FEH.Data
         {
         }
 
-        public DbSet<FEH.Components.Forms> Forms { get; set; } = default!;
         public DbSet<FEH.Components.Dogs> Dogs { get; set; } = default!;
     }
 }

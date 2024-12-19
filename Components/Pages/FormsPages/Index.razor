@@ -1,0 +1,48 @@
+﻿@page "/forms"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using FEH.Components
+@using FEH.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<FEH.Data.JackContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="forms/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.Forms">
+    <PropertyColumn Property="forms => forms.ID" />
+    <PropertyColumn Property="forms => forms.FirstName" />
+    <PropertyColumn Property="forms => forms.LastName" />
+    <PropertyColumn Property="forms => forms.UserID" />
+    <PropertyColumn Property="forms => forms.MonthlyIncome" />
+    <PropertyColumn Property="forms => forms.HouseholdPets" />
+    <PropertyColumn Property="forms => forms.HouseholdHumans" />
+    <PropertyColumn Property="forms => forms.Felon" />
+    <PropertyColumn Property="forms => forms.Email" />
+    <PropertyColumn Property="forms => forms.DogName" />
+    <PropertyColumn Property="forms => forms.Status" />
+    <PropertyColumn Property="forms => forms.Address" />
+    <PropertyColumn Property="forms => forms.DogID" />
+
+    <TemplateColumn Context="forms">
+        <a href="@($"forms/edit?id={forms.ID}")">Edit</a> |
+        <a href="@($"forms/details?id={forms.ID}")">Details</a> |
+        <a href="@($"forms/delete?id={forms.ID}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private JackContext context = default!;
+    
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+    
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

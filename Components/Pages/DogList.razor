@@ -1,0 +1,53 @@
+﻿@using Microsoft.EntityFrameworkCore
+@using FEH.Components
+@using FEH.State
+@inject IDbContextFactory<FEH.Data.JackContext> DbFactory
+@inject NavigationManager NavigationManager
+@page "/dog-list"
+<PageTitle>Our Dogs</PageTitle>
+<h3>Dogs</h3>
+@code {
+
+
+    private List<Dogs> Dogs = new();
+    protected override async Task OnInitializedAsync()
+    {
+        var context = await DbFactory.CreateDbContextAsync();
+        Dogs = await context.Dogs.ToListAsync();
+    }
+
+}
+    
+        <div class="dog-listings">
+            @if (Dogs == null || Dogs.Count == 0)
+            {
+                <p>No dogs available for adoption at the moment.</p>
+            }
+            else
+            {
+                @foreach (var dog in Dogs)
+                {
+                    <div class="dog-card">
+                    
+                            <img src="@dog.Image" alt="@dog.Name" class="dog-image" />
+                            <h4>@dog.Name</h4>
+                            <p><strong>Breed:</strong> @dog.Breed</p>
+                            <p><strong>Age:</strong> @dog.Age years</p>
+                            <p><strong>Size:</strong> @dog.Size cm</p>
+                            <p>@dog.Description</p>
+                            @if (dog.AdoptionPending) 
+                            {
+                                <p><strong>Adoption Pending</strong></p>
+                            }
+                            @if (!dog.AdoptionPending)
+                            {
+                    <NavLink href="@($"/dog-details/{dog.Id}")">
+                        <p><strong>Ready to adopt!</strong></p>
+                    </NavLink>
+                            }
+                    
+                    
+            </div>
+                }
+            }
+        </div>

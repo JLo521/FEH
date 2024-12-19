@@ -1,0 +1,28 @@
+﻿
+
+.dog-listings {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 16px;
+    padding: 16px; 
+}
+
+.dog-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: transform 0.2s;
+}
+
+    .dog-card:hover {
+        transform: scale(1.1); 
+    }
+
+.dog-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}

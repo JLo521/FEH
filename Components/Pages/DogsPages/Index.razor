@@ -4,7 +4,7 @@
 @using FEH.Components
 @using FEH.Data
 @implements IAsyncDisposable
-@inject IDbContextFactory<FEH.Data.FEHContext> DbFactory
+@inject IDbContextFactory<FEH.Data.JackContext> DbFactory
 
 <PageTitle>Index</PageTitle>
 
@@ -32,7 +32,7 @@
 </QuickGrid>
 
 @code {
-    private FEHContext context = default!;
+    private JackContext context = default!;
 
     protected override void OnInitialized()
     {

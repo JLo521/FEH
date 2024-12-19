@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FEH.Migrations
 {
-    [DbContext(typeof(FEHContext))]
+    [DbContext(typeof(JackContext))]
     [Migration("20241217225532_mssql.local_migration_812")]
     partial class mssqllocal_migration_812
     {

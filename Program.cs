@@ -6,8 +6,8 @@ using FEH.State;
 
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContextFactory<FEHContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("FEHContext") ?? throw new InvalidOperationException("Connection string 'FEHContext' not found.")));
+builder.Services.AddDbContextFactory<JackContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("JackContext") ?? throw new InvalidOperationException("Connection string 'JackContext' not found.")));
 
 
 

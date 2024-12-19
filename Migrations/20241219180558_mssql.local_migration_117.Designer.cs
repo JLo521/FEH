@@ -3,16 +3,19 @@ using FEH.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
 namespace FEH.Migrations
 {
-    [DbContext(typeof(FEHContext))]
-    partial class FEHContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(JackContext))]
+    [Migration("20241219180558_mssql.local_migration_117")]
+    partial class mssqllocal_migration_117
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

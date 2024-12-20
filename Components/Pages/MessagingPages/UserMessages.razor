@@ -1,8 +1,16 @@
 ﻿@rendermode InteractiveServer
+@using static userDetails
 @inject Messaging Messaging
 @page "/messages/user"
 
 <PageTitle>UserMessagingPage</PageTitle>
+
+@if (userDetails.id == -1)
+{
+    <p>Sorry, you must be logged in</p>
+
+}
+else {
 <p><h1>Secure User Messaging</h1></p>
 <p><h3>Send a message or question to an admin.</h3></p>
 
@@ -14,7 +22,7 @@
 
 <h3>Message Log</h3>
 <textarea class="form-control" rows="10" style="resize: none; overflow-y: auto;" readonly>@Messaging.messages</textarea>
-
+}
 @code {
     private string currentName = string.Empty;
     private string currentMessage = string.Empty;

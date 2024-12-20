@@ -1,6 +1,7 @@
 ﻿@using Microsoft.EntityFrameworkCore
 @using FEH.Components
 @using FEH.State
+@using static userDetails
 @inject IDbContextFactory<FEH.Data.JackContext> DbFactory
 @inject NavigationManager NavigationManager
 @page "/dog-list"
@@ -18,7 +19,12 @@
 
 }
     
-        <div class="dog-listings">
+        @if (userDetails.id == -1)
+        {
+                <p>Sorry, you must be logged in</p>
+        }
+else {
+            <div class="dog-listings">
             @if (Dogs == null || Dogs.Count == 0)
             {
                 <p>No dogs available for adoption at the moment.</p>
@@ -51,3 +57,5 @@
                 }
             }
         </div>
+
+}

@@ -3,6 +3,7 @@
     "mssql1": {
       "type": "mssql.local",
       "connectionId": "ConnectionStrings:JackContext"
+      "connectionId": "ConnectionStrings:FEHContext1"
     }
   }
 }

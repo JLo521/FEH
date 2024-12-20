@@ -1,0 +1,40 @@
+﻿@page "/users/Index"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using FEH
+@implements IAsyncDisposable
+@inject IDbContextFactory<FEH.Data.FEHContext1> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="users/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.User">
+    <PropertyColumn Property="user => user.fname" />
+    <PropertyColumn Property="user => user.lname" />
+    <PropertyColumn Property="user => user.address" />
+    <PropertyColumn Property="user => user.username" />
+    <PropertyColumn Property="user => user.password" />
+    <PropertyColumn Property="user => user.isAdmin" />
+
+    <TemplateColumn Context="user">
+        <a href="@($"users/edit?id={user.id}")">Edit</a> |
+        <a href="@($"users/details?id={user.id}")">Details</a> |
+        <a href="@($"users/delete?id={user.id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private Data.FEHContext1 context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

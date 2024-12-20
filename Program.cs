@@ -13,6 +13,10 @@ builder.Services.AddDbContextFactory<JackContext>(options =>
 
 
 
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContextFactory<FEHContext1>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("FEHContext1") ?? throw new InvalidOperationException("Connection string 'FEHContext1' not found.")));
+
 builder.Services.AddQuickGridEntityFrameworkAdapter();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();

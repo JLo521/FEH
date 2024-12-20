@@ -4,6 +4,7 @@ using FEH.Components;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using FEH.Data;
+<<<<<<< HEAD
 using FEH.State;
 
 
@@ -12,10 +13,17 @@ builder.Services.AddDbContextFactory<JackContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("JackContext") ?? throw new InvalidOperationException("Connection string 'JackContext' not found.")));
 
 
+=======
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContextFactory<FEHContext1>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("FEHContext1") ?? throw new InvalidOperationException("Connection string 'FEHContext1' not found.")));
+>>>>>>> not-working
 
 builder.Services.AddQuickGridEntityFrameworkAdapter();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+<<<<<<< HEAD
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSingleton<Messaging>();
@@ -26,6 +34,8 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+=======
+>>>>>>> not-working
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

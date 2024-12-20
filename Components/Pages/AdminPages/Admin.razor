@@ -1,9 +1,21 @@
 ﻿@page "/admin"
+@rendermode InteractiveServer
+@using Microsoft.AspNetCore.Components;
+@using Microsoft.AspNetCore.Components.Web;
+@using FEH.Components;
+@using Microsoft.EntityFrameworkCore
+@using FEH
 
 <PageTitle>AdminPage</PageTitle>
-
+@inject NavigationManager NavigationManager
 <p><h1>Admin Controls</h1></p>
 <p><h3>Welcome to the admin page, please select what you would like to do</h3></p>
 
 <p><NavLink href="/messages/admin">Go to Admin Messages</NavLink></p>
 <p><NavLink href="/admin/dogs">Go to Dog Info Page</NavLink></p>
+<button @onclick="redirect">user list</button>
+@code{
+    public void redirect(){
+        NavigationManager.NavigateTo("/users/Index");
+    }
+}

@@ -19,19 +19,7 @@ namespace FEH.Components
         {
 
         }
-        /*
-        public Dogs(int id, bool adoptionPending, int age, string name, decimal size, string description, string breed, string image)
-        {
-            Id = id;
-            AdoptionPending = adoptionPending;
-            Age = age;
-            Name = name;
-            Size = size;
-            Description = description;
-            Breed = breed;
-            Image = image;
-        }
-        */
+
 
 
 

@@ -26,7 +26,11 @@
                 <InputText id="lastname" @bind-Value="Forms.LastName" class="form-control" /> 
                 <ValidationMessage For="() => Forms.LastName" class="text-danger" /> 
             </div>        
-                 
+            <div class="mb-3">
+                <label for="userid" class="form-label">UserID:</label> 
+                <InputNumber id="userid" @bind-Value="Forms.UserID" class="form-control" /> 
+                <ValidationMessage For="() => Forms.UserID" class="text-danger" /> 
+            </div>        
             <div class="mb-3">
                 <label for="monthlyincome" class="form-label">MonthlyIncome:</label> 
                 <InputNumber id="monthlyincome" @bind-Value="Forms.MonthlyIncome" class="form-control" /> 
@@ -54,18 +58,21 @@
             </div>        
             <div class="mb-3">
                 <label for="dogname" class="form-label">DogName:</label> 
-                <InputText id="dogname" @bind-Value="Forms.DogName" class="form-control" disabled />
+                <InputText id="dogname" @bind-Value="Forms.DogName" class="form-control" disabled/> 
                 <ValidationMessage For="() => Forms.DogName" class="text-danger" /> 
             </div>        
-                  
+            <div class="mb-3">
+                <label for="status" class="form-label">Status:</label> 
+                <InputText id="status" @bind-Value="Forms.Status" class="form-control" /> 
+                <ValidationMessage For="() => Forms.Status" class="text-danger" /> 
+            </div>        
             <div class="mb-3">
                 <label for="address" class="form-label">Address:</label> 
                 <InputText id="address" @bind-Value="Forms.Address" class="form-control" /> 
                 <ValidationMessage For="() => Forms.Address" class="text-danger" /> 
             </div>        
-               
+                 
             <button type="submit" class="btn btn-primary">Create</button>
-
         </EditForm>
     </div>
 </div>
@@ -76,38 +83,22 @@
 
 @code {
     [SupplyParameterFromForm]
-    private Forms Forms { get; set; } = new Forms
-        {
-            UserID = 0,
-            DogName = UserState.DogName,
-            Status = "Pending",
-            DogID = UserState.DogID,
-            FirstName = string.Empty,
-            LastName = string.Empty,
-            MonthlyIncome = 0m,
-            HouseholdPets = 0,
-            HouseholdHumans = 0,
-            Felon = false,
-            Email = string.Empty,
-            Address = string.Empty
-        };
-
+    private Forms Forms { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
-        Forms.DogName = UserState.DogName;
         Forms.DogID = UserState.DogID;
+        Forms.DogName = UserState.DogName;
 
         await Task.CompletedTask;
     }
 
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
     private async Task AddForms()
     {
-        Console.WriteLine($"Saving Forms: {Forms.FirstName}, {Forms.LastName}, {Forms.MonthlyIncome}");
         using var context = DbFactory.CreateDbContext();
         context.Forms.Add(Forms);
         await context.SaveChangesAsync();
         NavigationManager.NavigateTo("/forms");
     }
 }
-

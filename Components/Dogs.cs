@@ -1,4 +1,9 @@
+using System.Runtime.Serialization;
 
+namespace FEH.Components
+{
+    public class Dogs
+    {
         public int Id { get; set; }
         public bool AdoptionPending { get; set; }
         public int Age { get; set; }
@@ -25,9 +30,5 @@
 }
 
 
-
-    }
-
-}
 
 

@@ -1,8 +1,10 @@
 ﻿@page "/dogs/edit"
 @using Microsoft.EntityFrameworkCore
 @using FEH.Components
-@inject IDbContextFactory<OurDogs.Data.FEHContext> DbFactory
+@inject IDbContextFactory<FEH.Data.JackContext> DbFactory
 @inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
 
 
 <h1>Edit</h1>

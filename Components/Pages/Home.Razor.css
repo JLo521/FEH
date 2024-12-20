@@ -1,12 +1,8 @@
-﻿body {
-    background: url("../assets/paper.jpg") left top repeat;
+﻿h1 {
+    margin-top: 100px;
+    ;
 }
-.yeesh {
-    
-}
-img{
-    border-radius: 8px;
-}
-p{
-font-size: 20px;
+
+body {
+    background-color: white;
 }

@@ -2,11 +2,7 @@
   "dependencies": {
     "mssql1": {
       "type": "mssql.local",
-<<<<<<< HEAD
       "connectionId": "ConnectionStrings:JackContext"
-=======
-      "connectionId": "ConnectionStrings:FEHContext1"
->>>>>>> not-working
     }
   }
 }

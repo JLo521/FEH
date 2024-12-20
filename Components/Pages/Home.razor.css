@@ -1,3 +1,12 @@
 ﻿body {
-    background-color: green;
+    background: url("../assets/paper.jpg") left top repeat;
+}
+.yeesh {
+    
+}
+img{
+    border-radius: 8px;
+}
+p{
+font-size: 20px;
 }

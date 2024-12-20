@@ -4,12 +4,8 @@
 @using FEH.State
 @inject IDbContextFactory<FEH.Data.JackContext> DbFactory
 @inject NavigationManager NavigationManager
+
 <PageTitle>Create</PageTitle>
-@inject IDbContextFactory<OurDogs.Data.FEHContext> DbFactory
-@inject NavigationManager NavigationManager
-@inject IJSRuntime JS
-
-
 
 <h1>Create</h1>
 
@@ -19,43 +15,42 @@
     <div class="col-md-4">
         <EditForm method="post" Model="Dogs" OnValidSubmit="AddDogs" FormName="create" Enhance>
             <DataAnnotationsValidator />
-            <ValidationSummary class="text-danger" role="alert"/>
+            <ValidationSummary class="text-danger" role="alert" />
             <div class="mb-3">
-                <label for="adoptionpending" class="form-label">AdoptionPending:</label> 
-                <InputCheckbox id="adoptionpending" @bind-Value="Dogs.AdoptionPending" class="form-check-input" /> 
-                <ValidationMessage For="() => Dogs.AdoptionPending" class="text-danger" /> 
-            </div>        
+                <label for="adoptionpending" class="form-label">AdoptionPending:</label>
+                <InputCheckbox id="adoptionpending" @bind-Value="Dogs.AdoptionPending" class="form-check-input" />
+                <ValidationMessage For="() => Dogs.AdoptionPending" class="text-danger" />
+            </div>
             <div class="mb-3">
-                <label for="age" class="form-label">Age:</label> 
-                <InputNumber id="age" @bind-Value="Dogs.Age" class="form-control" /> 
-                <ValidationMessage For="() => Dogs.Age" class="text-danger" /> 
-            </div>        
+                <label for="age" class="form-label">Age:</label>
+                <InputNumber id="age" @bind-Value="Dogs.Age" class="form-control" />
+                <ValidationMessage For="() => Dogs.Age" class="text-danger" />
+            </div>
             <div class="mb-3">
-                <label for="name" class="form-label">Name:</label> 
-                <InputText id="name" @bind-Value="Dogs.Name" class="form-control" /> 
-                <ValidationMessage For="() => Dogs.Name" class="text-danger" /> 
-            </div>        
+                <label for="name" class="form-label">Name:</label>
+                <InputText id="name" @bind-Value="Dogs.Name" class="form-control" />
+                <ValidationMessage For="() => Dogs.Name" class="text-danger" />
+            </div>
             <div class="mb-3">
-                <label for="size" class="form-label">Size:</label> 
-                <InputNumber id="size" @bind-Value="Dogs.Size" class="form-control" /> 
-                <ValidationMessage For="() => Dogs.Size" class="text-danger" /> 
-            </div>        
+                <label for="size" class="form-label">Size:</label>
+                <InputNumber id="size" @bind-Value="Dogs.Size" class="form-control" />
+                <ValidationMessage For="() => Dogs.Size" class="text-danger" />
+            </div>
             <div class="mb-3">
-                <label for="description" class="form-label">Description:</label> 
-                <InputText id="description" @bind-Value="Dogs.Description" class="form-control" /> 
-                <ValidationMessage For="() => Dogs.Description" class="text-danger" /> 
-            </div>        
+                <label for="description" class="form-label">Description:</label>
+                <InputText id="description" @bind-Value="Dogs.Description" class="form-control" />
+                <ValidationMessage For="() => Dogs.Description" class="text-danger" />
+            </div>
             <div class="mb-3">
-                <label for="breed" class="form-label">Breed:</label> 
-                <InputText id="breed" @bind-Value="Dogs.Breed" class="form-control" /> 
-                <ValidationMessage For="() => Dogs.Breed" class="text-danger" /> 
-            </div>        
+                <label for="breed" class="form-label">Breed:</label>
+                <InputText id="breed" @bind-Value="Dogs.Breed" class="form-control" />
+                <ValidationMessage For="() => Dogs.Breed" class="text-danger" />
+            </div>
             <div class="mb-3">
-                <label for="image" class="form-label">Image:</label> 
-                <InputText id="image" @bind-Value="Dogs.Image" class="form-control" /> 
-                <ValidationMessage For="() => Dogs.Image" class="text-danger" /> 
-            </div>        
-
+                <label for="image" class="form-label">Image:</label>
+                <InputText id="image" @bind-Value="Dogs.Image" class="form-control" />
+                <ValidationMessage For="() => Dogs.Image" class="text-danger" />
+            </div>
             <button type="submit" class="btn btn-primary">Create</button>
         </EditForm>
     </div>
@@ -72,16 +67,10 @@
     // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
     private async Task AddDogs()
     {
-        // UserState.DogName = Dogs.Name;
-        // UserState.DogID = Dogs.Id;
+        
         using var context = DbFactory.CreateDbContext();
         context.Dogs.Add(Dogs);
         await context.SaveChangesAsync();
         NavigationManager.NavigateTo("/dogs");
-=======
-    <a href="/dogs">Back to List</a>
-</div>
-
-
     }
 }

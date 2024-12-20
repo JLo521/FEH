@@ -15,7 +15,6 @@
 </p>
 
 <QuickGrid Class="table" Items="context.Forms">
-    <PropertyColumn Property="forms => forms.ID" />
     <PropertyColumn Property="forms => forms.FirstName" />
     <PropertyColumn Property="forms => forms.LastName" />
     <PropertyColumn Property="forms => forms.UserID" />
@@ -38,11 +37,11 @@
 
 @code {
     private JackContext context = default!;
-    
+
     protected override void OnInitialized()
     {
         context = DbFactory.CreateDbContext();
     }
-    
+
     public async ValueTask DisposeAsync() => await context.DisposeAsync();
 }
